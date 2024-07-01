@@ -1,0 +1,31 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Step 0 Welcome
+      id: step-0-welcome
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Step 0 Welcome
+        setup-command: sleep 20
+        command: "[ $(cat .github/steps/-step.txt) -ge 1 ] || [ $(cat .github/steps/-step.txt)
+          = X ]"
+        timeout: 10
+        max-score: 1
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        STEP-0-WELCOME_RESULTS: "${{steps.step-0-welcome.outputs.result}}"
+      with:
+        runners: step-0-welcome
