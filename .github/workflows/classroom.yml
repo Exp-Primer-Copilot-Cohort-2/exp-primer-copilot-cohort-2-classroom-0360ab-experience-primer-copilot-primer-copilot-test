@@ -23,9 +23,42 @@ jobs:
           = X ]"
         timeout: 10
         max-score: 1
+    - name: Step 1 Copilot Extension
+      id: step-1-copilot-extension
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Step 1 Copilot Extension
+        setup-command: sleep 20
+        command: "[ $(cat .github/steps/-step.txt) -ge 1 ] || [ $(cat .github/steps/-step.txt)
+          = X ]"
+        timeout: 10
+        max-score: 1
+    - name: Step 2 javascript
+      id: step-2-javascript
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Step 2 javascript
+        setup-command: sleep 20
+        command: "[ $(cat .github/steps/-step.txt) -ge 2 ] || [ $(cat .github/steps/-step.txt)
+          = X ]"
+        timeout: 10
+        max-score: 1
+    - name: Step 3 Copilot Hub
+      id: step-3-copilot-hub
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Step 3 Copilot Hub
+        setup-command: sleep 20
+        command: "[ $(cat .github/steps/-step.txt) -ge 3 ] || [ $(cat .github/steps/-step.txt)
+          = X ]"
+        timeout: 10
+        max-score: 1
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
         STEP-0-WELCOME_RESULTS: "${{steps.step-0-welcome.outputs.result}}"
+        STEP-1-COPILOT-EXTENSION_RESULTS: "${{steps.step-1-copilot-extension.outputs.result}}"
+        STEP-2-JAVASCRIPT_RESULTS: "${{steps.step-2-javascript.outputs.result}}"
+        STEP-3-COPILOT-HUB_RESULTS: "${{steps.step-3-copilot-hub.outputs.result}}"
       with:
-        runners: step-0-welcome
+        runners: step-0-welcome,step-1-copilot-extension,step-2-javascript,step-3-copilot-hub
