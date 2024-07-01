@@ -53,6 +53,26 @@ jobs:
           = X ]"
         timeout: 10
         max-score: 1
+    - name: Step 4 Copilot comment
+      id: step-4-copilot-comment
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Step 4 Copilot comment
+        setup-command: sleep 20
+        command: "[ $(cat .github/steps/-step.txt) -ge 4 ] || [ $(cat .github/steps/-step.txt)
+          = X ]"
+        timeout: 10
+        max-score: 1
+    - name: Step 5 finish
+      id: step-5-finish
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Step 5 finish
+        setup-command: sleep 20
+        command: "[ $(cat .github/steps/-step.txt) -ge 5 ] || [ $(cat .github/steps/-step.txt)
+          = X ]"
+        timeout: 10
+        max-score: 1
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
@@ -60,5 +80,7 @@ jobs:
         STEP-1-COPILOT-EXTENSION_RESULTS: "${{steps.step-1-copilot-extension.outputs.result}}"
         STEP-2-JAVASCRIPT_RESULTS: "${{steps.step-2-javascript.outputs.result}}"
         STEP-3-COPILOT-HUB_RESULTS: "${{steps.step-3-copilot-hub.outputs.result}}"
+        STEP-4-COPILOT-COMMENT_RESULTS: "${{steps.step-4-copilot-comment.outputs.result}}"
+        STEP-5-FINISH_RESULTS: "${{steps.step-5-finish.outputs.result}}"
       with:
-        runners: step-0-welcome,step-1-copilot-extension,step-2-javascript,step-3-copilot-hub
+        runners: step-0-welcome,step-1-copilot-extension,step-2-javascript,step-3-copilot-hub,step-4-copilot-comment,step-5-finish
