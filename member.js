@@ -7,6 +7,7 @@ function skillsMember(){
         bindToController: true,
         scope: {
         member:'='
-        }git 
+        }
     };
+
 }
