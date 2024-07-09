@@ -1,30 +1,27 @@
-// Creating web server with express
+// Creating web server to handle comments
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
+const port = 3000;
 
-// Serve static files
-app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-// Use body parser
-app.use(express.json());
+// Array to store comments
+const comments = [];
 
-// Use comments.js
-const comments = require('./comments');
+// Route to get all comments
+app.get('/comments', function (req, res) {
+    res.json(comments);
+});
 
-// Create a new comment
-app.post('/comments', (req, res) => {
-    // Create a new comment
-    const comment = comments.createComment(req.body);
+// Route to create a new comment
+app.post('/comments', function (req, res) {
+    const comment = req.body;
+    comments.push(comment);
     res.json(comment);
 });
 
-// Get all comments
-app.get('/comments', (req, res) => {
-    const allComments = comments.getAllComments();
-    res.json(allComments);
-});
-
-// Start the server
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+app.listen(port, function () {
+    console.log('Server listening on port ' + port);
 });
