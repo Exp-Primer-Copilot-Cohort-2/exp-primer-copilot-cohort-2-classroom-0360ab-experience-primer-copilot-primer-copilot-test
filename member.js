@@ -1,3 +1,4 @@
-function SkillMember() {
-    this.member = 'Member';
+function skillMember(){
+    let name = "skill member";
+    console.log(name);
 }
