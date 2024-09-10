@@ -5,3 +5,5 @@ function skillsMember() {
     };
     return member;
 }
+
+console.log(skillsMember());
