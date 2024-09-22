@@ -12,6 +12,8 @@ app.set('view engine', 'ejs');
 
 let comments = [];
 
+
+
 app.get('/comments', (req, res) => {
     res.render('comments', {comments: comments});
 });
