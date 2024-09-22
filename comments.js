@@ -1,29 +1,36 @@
-//create web server
+// Create a web server
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
-const fs = require('fs');
-const url = require('url');
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-app.use(express.static('public'));
-app.use(express.static('views'));
+const port = 3000;
+
+// Create an array of comments
+let comments = [
+    {name: 'John', comment: 'Hello World'},
+    {name: 'Jane', comment: 'Hi there'}
+];
+
+// Set up the template engine
 app.set('view engine', 'ejs');
 
-let comments = [];
+// Set up the static folder for the front-end
+app.use(express.static('public'));
 
+// Set up the body parser
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: true}));
 
-
-app.get('/comments', (req, res) => {
-    res.render('comments', {comments: comments});
+// Set up the route for the home page
+app.get('/', (req, res) => {
+    res.render('index.ejs', {comments: comments});
 });
 
-app.post('/comments', (req, res) => {
-    let comment = req.body.comment;
-    comments.push(comment);
-    res.render('comments', {comments: comments});
+// Set up the route for the form submission
+app.post('/comment', (req, res) => {
+    comments.push({name: req.body.name, comment: req.body.comment});
+    res.render('index.ejs', {comments: comments});
 });
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+// Start the server
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });
