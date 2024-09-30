@@ -1,7 +1,7 @@
 function sillmember(){
     return {
         restrict: 'E',
-        templateUrl: 'app/member/member.html',
+        templateUrl: 'modules/skills/views/member.html',
         controller: 'SkillMemberController',
         controllerAs: 'vm',
         bindToController: true,
